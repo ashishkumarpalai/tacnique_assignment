@@ -19,7 +19,7 @@ taskRouter.get('/', authenticate, async (req, res) => {
 
 // Route for creating a new task with validation
 taskRouter.post(
-    '/',
+    '/',authenticate,
     [
         // Validate the request body fields using express-validator
         body('title').notEmpty().withMessage('Title is required'),
@@ -54,7 +54,7 @@ taskRouter.post(
 
 
 // Route for retrieving a specific task by ID
-taskRouter.get('/:id', async (req, res) => {
+taskRouter.get('/:id',authenticate, async (req, res) => {
     try {
         const taskId = req.params.id;
         const task = await TaskModel.findById(taskId);
@@ -69,7 +69,7 @@ taskRouter.get('/:id', async (req, res) => {
 });
 
 // Route for updating a specific task by ID
-taskRouter.put('/:id', async (req, res) => {
+taskRouter.put('/:id',authenticate, async (req, res) => {
     try {
         const taskId = req.params.id;
         const { title, description, status } = req.body;
@@ -95,7 +95,7 @@ taskRouter.put('/:id', async (req, res) => {
 });
 
 // Route for deleting a specific task by ID
-taskRouter.delete('/:id', async (req, res) => {
+taskRouter.delete('/:id',authenticate, async (req, res) => {
     try {
         const taskId = req.params.id;
         const deletedTask = await TaskModel.findByIdAndRemove(taskId);
