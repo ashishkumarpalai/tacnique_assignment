@@ -95,5 +95,5 @@ npm install
 4. Start the API server:
 
 ```bash
-npm start
+npm run server
 ```
